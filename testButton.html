@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <style type="text/css">
+       body { background: ##f4f1f1 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    </style>
+    <div class = "container align-self-center p-3">
+    <h1 class = "text-center">PRESS THIS BUTTON NOW</h1>
+      <div class = "text-center p-3">
+        <button class = "mx-auto btn-primary btn-lg center-block" type="button" onclick="generateTable()">Find Courses</button>
+      </div>
+      <table class = "table p-3" id="display"></table>
+      <script type="text/javascript" charset="utf-8" async defer>
+      function generateTable() {
+        // var data={
+        //   "key_one": "value_one",
+        //   "key_two": "value_two",
+        //   "key_three": "value_three"
+        // };
+        var data={
+          "Course Code": "E62 BME 559",
+          "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
+           "Title": "Intermediate Biomechanics",
+           "Date": "M-W----",
+           "Credits": 3,
+           "Time": "11:30A-1:00P",
+           "Instructor": "Shao"
+        }
+        // var table = document.createElement("TABLE");
+        $.each(data, function(key, val) {
+            $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
+        });
+        $.getJSON( "https://protected-lowlands-84461.herokuapp.com/universities", function( data ) {
+          $.each( data, function( key, val ) {
+              $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
+          });
+        });
+      }
+      </script>
+      </div>
+  </body>
+</html>
