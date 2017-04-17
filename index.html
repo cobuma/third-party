@@ -39,6 +39,7 @@
            "Instructor": "Shao"
         }
         // var table = document.createElement("TABLE");
+        $("#display tr").remove();
         $.each(data, function(key, val) {
             $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
         });
