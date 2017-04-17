@@ -29,7 +29,7 @@
         //   "key_two": "value_two",
         //   "key_three": "value_three"
         // };
-        var data={
+        var data=[{
           "Course Code": "E62 BME 559",
           "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
            "Title": "Intermediate Biomechanics",
@@ -37,12 +37,36 @@
            "Credits": 3,
            "Time": "11:30A-1:00P",
            "Instructor": "Shao"
-        }
+        },
+        {
+          "Course Code": "E62 BME 559",
+          "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
+           "Title": "Intermediate Biomechanics",
+           "Date": "M-W----",
+           "Credits": 3,
+           "Time": "11:30A-1:00P",
+           "Instructor": "Shao"
+        },
+        {
+          "Course Code": "E62 BME 559",
+          "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
+           "Title": "Intermediate Biomechanics",
+           "Date": "M-W----",
+           "Credits": 3,
+           "Time": "11:30A-1:00P",
+           "Instructor": "Shao"
+        }]
         // var table = document.createElement("TABLE");
         $("#display tr").remove();
-        $.each(data, function(key, val) {
+        /*$.each(data, function(key, val) {
+          $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
+        });*/
+        $.each(data, function(index, jsonObject) {
+          $.each(jsonObject, function(key, val) {
             $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
+          });
         });
+        
         $.getJSON( "https://protected-lowlands-84461.herokuapp.com/universities", function( data ) {
           $.each( data, function( key, val ) {
               $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
