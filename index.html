@@ -1,79 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Course Search</title>
+    <link href='http://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/courseFinder.css" rel="stylesheet">
+</head>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  </head>
-  <body>
-    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <style type="text/css">
-       body { background: ##f4f1f1 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
-    </style>
-    <div class = "container align-self-center p-3">
-    <h1 class = "text-center">Third Party App</h1>
-      <div class = "text-center p-3">
-        <button class = "mx-auto btn-primary btn-lg center-block" type="button" onclick="generateTable()">Find Courses</button>
-      </div>
-      <table class = "table p-3" id="display"></table>
-      <script type="text/javascript" charset="utf-8" async defer>
-      function generateTable() {
-        // var data={
-        //   "key_one": "value_one",
-        //   "key_two": "value_two",
-        //   "key_three": "value_three"
-        // };
-        var data=[{
-          "Course Code": "E62 BME 559",
-          "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
-           "Title": "Intermediate Biomechanics",
-           "Date": "M-W----",
-           "Credits": 3,
-           "Time": "11:30A-1:00P",
-           "Instructor": "Shao"
-        },
-        {
-          "Course Code": "E62 BME 559",
-          "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
-           "Title": "Intermediate Biomechanics",
-           "Date": "M-W----",
-           "Credits": 3,
-           "Time": "11:30A-1:00P",
-           "Instructor": "Shao"
-        },
-        {
-          "Course Code": "E62 BME 559",
-          "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
-           "Title": "Intermediate Biomechanics",
-           "Date": "M-W----",
-           "Credits": 3,
-           "Time": "11:30A-1:00P",
-           "Instructor": "Shao"
-        }]
-        // var table = document.createElement("TABLE");
-        $("#display tr").remove();
-        /*$.each(data, function(key, val) {
-          $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
-        });*/
-        $.each(data, function(index, jsonObject) {
-          $.each(jsonObject, function(key, val) {
-            $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
-          });
-        });
-        
-        $.getJSON( "https://protected-lowlands-84461.herokuapp.com/universities", function( data ) {
-          $.each( data, function( key, val ) {
-              $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
-          });
-        });
-      }
-      </script>
-      </div>
-  </body>
+<body id = "body">
+    <h1 id = "greeting"></h1>
+    <div class="courseSearchDiv">
+        <h2>Fill My Schedule:</h2>
+        <div class="meetingDays">
+          <h4>What days do you have available?</h4>
+          <select id = "days">
+            <option value="MWF">M-W-F--</option>
+            <option value="MW">M-W----</option>
+            <option value="TR">-T-R---</option>
+          </select>
+        </div>
+
+        <div class="meetingDays">
+          <h4>What department's courses do you want?</h4>
+          <select id = "dept">
+            <option value="CSE">CSE</option>
+            <option value="ESE">ESE</option>
+            <option value="BME">BME</option>
+            <option value="EECE">EECE</option>
+            <option value="ENGR">ENGR</option>
+            <option value="ESE">ESE</option>
+            <option value="MEMS">MEMS</option>
+          </select>
+        </div>
+
+        <div class="startTime">
+          <h4>Course Start Time</h4>
+          <select id = "start">
+            <option value="8_00A">08:00A</option>
+            <option value="8_30A">08:30A</option>
+            <option value="9_00A">09:00A</option>
+            <option value="9_30A">09:30A</option>
+            <option value="10_00A">10:00A</option>
+            <option value="10_30A">10:30A</option>
+            <option value="11_00A">11:00A</option>
+            <option value="11_30A">11:30A</option>
+            <option value="12_00P">12:00P</option>
+            <option value="12_30P">12:30P</option>
+            <option value="1_00P">1:00P</option>
+            <option value="1_30P">1:30P</option>
+            <option value="2_00P">2:00P</option>
+            <option value="2_30P">2:30P</option>
+            <option value="3_00P">3:00P</option>
+            <option value="3_30P">3:30P</option>
+            <option value="4_00P">4:00P</option>
+            <option value="4_30P">4:30P</option>
+            <option value="5_00P">5:00P</option>
+            <option value="5_30P">5:30P</option>
+            <option value="6_00P">6:00P</option>
+            <option value="6_30P">6:30P</option>
+            <option value="7_00P">7:00P</option>
+            <option value="7_30P">7:30P</option>
+          </select>
+        </div>
+        <div class="endTime">
+          <h4>Course End Time</h4>
+          <select id = "end">
+            <option value="9_00A">09:00A</option>
+            <option value="9_30A">09:30A</option>
+            <option value="10_00A">10:00A</option>
+            <option value="10_30A">10:30A</option>
+            <option value="11_00A">11:00A</option>
+            <option value="11_30A">11:30A</option>
+            <option value="12_00P">12:00P</option>
+            <option value="12_30P">12:30P</option>
+            <option value="1_00P">1:00P</option>
+            <option value="1_30P">1:30P</option>
+            <option value="2_00P">2:00P</option>
+            <option value="2_30P">2:30P</option>
+            <option value="3_00P">3:00P</option>
+            <option value="3_30P">3:30P</option>
+            <option value="4_00P">4:00P</option>
+            <option value="4_30P">4:30P</option>
+            <option value="5_00P">5:00P</option>
+            <option value="5_30P">5:30P</option>
+            <option value="6_00P">6:00P</option>
+            <option value="6_30P">6:30P</option>
+            <option value="7_00P">7:00P</option>
+            <option value="7_30P">7:30P</option>
+            <option value="8_00P">8:00P</option>
+            <option value="8_30P">8:30P</option>
+            <option value="9_00P">9:00P</option>
+          </select>
+        </div>
+
+		<!--Month <input type="number" class="jumpMonth" placeholder="01" min="1" max="12" name="jumpMonth" id="newMonth"  required>
+		Year <input type="number" class="jumpMonth" placeholder="2015" min="0" max="3000" name="jumpYear" id="newYear"  required>-->
+        <br><br>
+        <button type="submit" id="findCourses-btn" value="Submit" class="btn btn-primary btn-lg findClasses-btn">Find Courses
+        </button>
+        <br><br>
+    </div>
+
+    <div class="courseResults ">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-8">
+          <table class = "table p-3 " id="display"></table>
+        </div>
+    </div>
+
+    <!--<script src="calculator.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/populateCourses.js"></script>
+    <script src="ajax.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
 </html>

@@ -1,0 +1,85 @@
+body {
+	font-family: 'Crimson Text', serif;
+	text-align: center;
+}
+table {
+	border: 1px solid black;
+	width:80%;
+	margin-left: 5%;
+}
+th {
+	border: 1px solid black;
+	text-align: center;
+}
+td{
+	border: 1px solid black;
+	height: 100px;
+}
+ul{
+	padding-left:20px;
+}
+li{
+	text-align: left;
+}
+div.calendar{
+	margin-top:-70px;
+}
+ul.eventsUL{
+	margin: 0px;
+	padding-left: 5px;
+	width: 150px;
+	text-align: left;
+/*	white-space: nowrap;*/
+	overflow: hidden;
+}
+#login-btn, #createAccount-btn, #jump-btn{
+	padding: 5px 50px;
+	margin: 5px;
+}
+.jumpMonth{
+	width:60px;
+}
+.days{
+	padding:15px;
+}
+.dayNumber{
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 20.5%;
+	margin-left: 80.5%;
+	margin-top: -50px;
+	border: 1px solid black;
+}
+.dayNumber:hover{
+	background-color:#3C8DC5;
+	color:#E9F2F9;
+}
+#previousMonth{
+	text-align: left;
+	margin-left:15%;
+}
+#nextMonth{
+	text-align: right;
+	margin-left: 82.5%;
+	margin-top: -25px;
+	width: 50px;
+}
+.addEvent-btn{
+	padding: 5px 35px;
+	margin: 10px;
+}
+.modalHeader{
+	border-bottom: 1px solid black;
+	margin: 0px 30px;
+	padding: 5px;
+}
+.top-btn{
+	position: relative;
+	left: -35%;
+	top: -90px;
+	width: 150px;
+	margin-top: 10px;
+	font-size: 18px;
+	padding: 3px 0px;
+}
+
