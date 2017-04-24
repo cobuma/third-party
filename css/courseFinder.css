@@ -21,6 +21,13 @@ ul{
 li{
 	text-align: left;
 }
-#singleCourse {
-	    border: 1px solid black;
+.title {
+	    border-top: 1px solid black;
+}
+.instructor{
+	margin:0px;
+}
+
+.courseCode{
+	margin:0px;
 }

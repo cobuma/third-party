@@ -4,8 +4,21 @@ var searchBtn = document.getElementById("findCourses-btn");
     else if (searchBtn.attachEvent)
         searchBtn.attachEvent('onclick', generateTable);
 
-function generateTable() {
+function getData(){
+  var testTime = "10_00A";
+  // Returns list of objects: [{},{},{},{},{}]
+  $.getJSON('http://34.200.240.84:3000/course',
+  {
+    time:testTime,
+    days: "W",
+    cr: "3"
+  }, function( data ) {
+       console.log(data);
+  });
+}
 
+function generateTable() {
+  getData()
   // This code tests to see if we are appropriately getting the dropdown menu items
   var start = $("#start option:selected").text();
   var end = $("#end option:selected").text();
@@ -14,48 +27,53 @@ function generateTable() {
   var queryString = "html heroku blah" + start + "/";
 
   // Append divs to the page displaying the selected items
-  $('<div>' + queryString + '</div>').appendTo(document.getElementById("body"));
-  $('<div>' + end + '</div>').appendTo(document.getElementById("body"));
-  $('<div>' + dept + '</div>').appendTo(document.getElementById("body"));
-  $('<div>' + days + '</div>').appendTo(document.getElementById("body"));
+  //TEMP STUFF
+  // $('<div>' + queryString + '</div>').appendTo(document.getElementById("body"));
+  // $('<div>' + end + '</div>').appendTo(document.getElementById("body"));
+  // $('<div>' + dept + '</div>').appendTo(document.getElementById("body"));
+  // $('<div>' + days + '</div>').appendTo(document.getElementById("body"));
 
   // Hardcoded toy data, meant to emulate JSON response data
   var data2=[{
-          "CourseCode": "E62 BME 559",
+          "code": "E62 BME 559",
           "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
-           "Title": "Intermediate Biomechanics",
+           "Title": "Intermediate Biomechanics 1",
            "Date": "M-W----",
            "Credits": 3,
            "Time": "11:30A-1:00P",
            "Instructor": "Shao"
         },
         {
-          "CourseCode": "E62 BME 559",
+          "code": "E62 BME 559",
           "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
-           "Title": "Intermediate Biomechanics",
+           "Title": "Intermediate Biomechanics 2",
            "Date": "M-W----",
            "Credits": 3,
            "Time": "11:30A-1:10P",
            "Instructor": "Shao"
         },
         {
-          "CourseCode": "E62 CSE 559",
+          "code": "E62 CSE 559",
           "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
-           "Title": "Intermediate Biomechanics",
+           "Title": "Intermediate Biomechanics 3",
            "Date": "M-W----",
            "Credits": 3,
            "Time": "11:20A-1:00P",
            "Instructor": "Shao"
         },
         {
-          "CourseCode": "E62 BME 559",
+          "code": "E62 BME 559",
           "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
-           "Title": "Intermediate Biomechanics",
+           "Title": "Intermediate Biomechanics 4",
            "Date": "M-W----",
            "Credits": 3,
            "Time": "11:20A-1:00P",
            "Instructor": "Shao"
         }]
+
+
+
+
 
         // Remove the table from the last time the button was pressed
         $("#display tr").remove();
@@ -76,16 +94,34 @@ function generateTable() {
             return this.indexOf(element) > -1;
         };
 
+
+
         $.each(data2, function(index, jsonObject) {
+
+          var codeAttr, descriptionAttr, courseTitleHeader, daysAttr, creditsAttr, timeAttr, professorAttr;
+          var counter = 0;
 
           // Returns an array of strings, where each entry is word from the CourseCode entry in the JSON data
           // i.e. "CSE 345" ---> ["CSE", "345"].  We can then check the array for the desired dept. code.
-          code = jsonObject.CourseCode.split(" ");
+          code = jsonObject.code.split(" ");
 
           // Separate the beginning and end times from the JSON response
           times = jsonObject.Time.split("-");
           startResponse = times[0];
           endResponse = times[1];
+
+          var $courseDiv = $("<div>", {class: "singleCourse"});//
+          var $courseRow1 = $("<div>", {class: "col-sm-12 courseRow1"});//first row
+          var $courseRow2 = $("<div>", {class: "col-sm-12 courseRow2"});//second row
+          var $courseRow3 = $("<div>", {class: "col-sm-12 courseRow3"});//third row
+          var $courseRow4 = $("<div>", {class: "col-sm-12 courseRow4"});//fourth row
+
+          $courseDiv.append($courseRow1);
+          $courseDiv.append($courseRow2);
+          $courseDiv.append($courseRow3);
+          $courseDiv.append($courseRow4);
+          //$courseDiv.appendTo(document.getElementById("body"));
+          $courseDiv.appendTo(document.getElementById("display"));
 
           //  To get the beginning and end times separated:
           //  1.)  Split JSON Time val on '-' character
@@ -94,49 +130,72 @@ function generateTable() {
           //       2.b)   Remove colon, add 1200 to number if it has a 'P'
           //  3.)  Append data rows for all those entries where REQSTartTime <= RESPSTart && REQEndTime >= RESPEnd
 
-          if (code.contains("BME") && startResponse == "11:20A" && endResponse == "1:00P") {
+          //if (code.contains("BME") && startResponse == "11:20A" && endResponse == "1:00P") {
             $.each(jsonObject, function(key, val) {
-              $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
+              //$('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
+
+
+              switch(key){
+                case "code":
+                  //Course Code
+                  var code = "Course code: " + val;
+                  codeAttr = $('<h3>' + code + '</h3>').attr('class', 'col-md-6 courseCode');
+                  break;
+                case "Description":
+                  //Description
+                  var description = key + ": " + val;
+                  descriptionAttr = $('<p>' + description + '</p>').attr('class', 'col-md-12 description');
+                  break;
+                case "Title":
+                  //Course Title
+                  var title = val;
+                  courseTitleHeader = $('<h2>' + title + '</h2>').attr('class', 'col-md-12 title');
+
+                case "Date":
+                  //Date
+                  var days = "Days: " + val;
+                  daysAttr = $('<h4>' + days + '</h4>').attr('class', 'col-md-4 days');
+
+                case "Credits":
+                  //Credits
+                  var credits = key + ": " + val;
+                  creditsAttr = $('<h4>' + credits + '</h4>').attr('class', 'col-md-4 credits');
+
+                case "Time":
+                  //Time
+                  var time = key + ": " + val;
+                  timeAttr = $('<h4>' + time + '</h4>').attr('class', 'col-md-4 time');
+
+                case "Instructor":
+                  //Professor
+                  var prof = key + ": " + val;
+                  professorAttr = $('<h3>' + prof + '</h3>').attr('class', 'col-md-6 instructor');
+              }
+
+
+
             });
-          }
+
+            $courseRow1.append(courseTitleHeader);
+            $courseRow2.append(professorAttr);
+            $courseRow2.append(codeAttr);
+            $courseRow3.append(daysAttr);
+            $courseRow3.append(timeAttr);
+            $courseRow3.append(creditsAttr);
+            $courseRow4.append(descriptionAttr);
+
+          //}
         });
 
         $.getJSON( "https://protected-lowlands-84461.herokuapp.com/universities", function( data ) {
           $.each( data, function( key, val ) {
-              $('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
+              //$('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
           });
         });
 
-  //$( "#myselect option:selected" ).text();
-  // var table = document.createElement("TABLE");
-
-  var $div = $("<div>", {id: "singleCourse", "class": "a"});//
-  var $courses1 = $("<div>", {id: "firstRow", "class": "col-sm-12"});//first row
-  var $courses2 = $("<div>", {id: "secondRow", "class": "col-sm-12"});//second row
-  var $courses3 = $("<div>", {id: "thirdRow", "class": "col-sm-12"});//third row
-  var $courses4 = $("<div>", {id: "fourthRow", "class": "col-sm-12"});//third row
-
-  $div.append($courses1);
-  $div.append($courses2);
-  $div.append($courses3);
-  $div.append($courses4);
-  $div.appendTo(document.getElementById("body"));
 
 
-
-
-
-
-
-
-
-
-
-
-  var codeAttr, descriptionAttr, courseTitleHeader, daysAttr, creditsAttr, timeAttr, professorAttr;
-
-  $("#singleCourse").appendTo(document.getElementById("display"));
-
+        /*
   //$("#display tr").remove();
   $.each(data, function(key, val) {
       //$('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
@@ -180,18 +239,12 @@ function generateTable() {
 
 
   });
+ */
 
-  $("#firstRow").append(courseTitleHeader);
-  $("#secondRow").append(professorAttr);
-  $("#secondRow").append(codeAttr);
-  $("#thirdRow").append(daysAttr);
-  $("#thirdRow").append(timeAttr);
-  $("#thirdRow").append(creditsAttr);
-  $("#fourthRow").append(descriptionAttr);
 
-  $.getJSON( "https://protected-lowlands-84461.herokuapp.com/universities", function( data ) {
-    $.each( data, function( key, val ) {
-        //$('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
-    });
-  });
+  // $.getJSON( "https://protected-lowlands-84461.herokuapp.com/universities", function( data ) {
+  //   $.each( data, function( key, val ) {
+  //       //$('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
+  //   });
+  // });
 }
