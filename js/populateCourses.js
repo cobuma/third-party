@@ -24,7 +24,9 @@ function generateTable() {
   var end = $("#end option:selected").text();
   var dept = $("#dept option:selected").text();
   var days = $("#days option:selected").text();
-  var queryString = "html heroku blah" + start + "/";
+  var queryString = "34.200.240.84:3000/course?time=" + start + "&days=" + days + "&c=" + dept +
+  "&u=1";
+  console.log(queryString);
 
   // Append divs to the page displaying the selected items
   //TEMP STUFF
@@ -34,6 +36,9 @@ function generateTable() {
   // $('<div>' + days + '</div>').appendTo(document.getElementById("body"));
 
   // Hardcoded toy data, meant to emulate JSON response data
+  var data3 = $.getJSON(queryString);
+
+
   var data2=[{
           "code": "E62 BME 559",
           "Description": " This course covers several of the fundamental theories of solid mechanics that are needed to solve problems in biomechanics. The theories of nonlinear elasticity, viscoelasticity, and poroelasticity are applied to a large range of biological tissues including bone, articular cartilage, blood vessels, the heart, skeletal muscle, and red blood cells. Other topics include muscle activation, the biomechanics of development and functional adaptation, and the mechanics of hearing. Prerequisites: BME240 and ESE317 or ESE 318 and 319 or permission of instructor.\n",
@@ -96,11 +101,11 @@ function generateTable() {
 
 
 
-        $.each(data2, function(index, jsonObject) {
-
+        $.each(data3, function(index, jsonObject) {
+          console.log(data3);
           var codeAttr, descriptionAttr, courseTitleHeader, daysAttr, creditsAttr, timeAttr, professorAttr;
           var counter = 0;
-
+          /*
           // Returns an array of strings, where each entry is word from the CourseCode entry in the JSON data
           // i.e. "CSE 345" ---> ["CSE", "345"].  We can then check the array for the desired dept. code.
           code = jsonObject.code.split(" ");
@@ -109,7 +114,7 @@ function generateTable() {
           times = jsonObject.Time.split("-");
           startResponse = times[0];
           endResponse = times[1];
-
+          */
           var $courseDiv = $("<div>", {class: "singleCourse"});//
           var $courseRow1 = $("<div>", {class: "col-sm-12 courseRow1"});//first row
           var $courseRow2 = $("<div>", {class: "col-sm-12 courseRow2"});//second row
@@ -133,7 +138,7 @@ function generateTable() {
           //if (code.contains("BME") && startResponse == "11:20A" && endResponse == "1:00P") {
             $.each(jsonObject, function(key, val) {
               //$('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
-
+              console.log(key + ": " + val);
 
               switch(key){
                 case "code":
@@ -187,11 +192,13 @@ function generateTable() {
           //}
         });
 
-        $.getJSON( "https://protected-lowlands-84461.herokuapp.com/universities", function( data ) {
+        /*$.getJSON(queryString, function( data ) {
+          console.log("AM I here?!?!");
+          console.log(data);
           $.each( data, function( key, val ) {
               //$('<tr><td>'+key+'</td><td id="'+key+'">'+val+'</td><tr>').appendTo(document.getElementById("display"));
           });
-        });
+        });*/
 
 
 
